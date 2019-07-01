@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 class Member(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(30))
-    password = db.Column(db.String(30))
+    password = db.Column(db.String(30), default='password')
     email = db.Column(db.String(30))
     join_date = db.Column(db.DateTime)
     orders = db.relationship('Order', backref='member', lazy='dynamic')
@@ -18,10 +18,14 @@ class Member(db.Model):
     def __repr__(self):
         return f'Member {self.username}, {self.email}'
 
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('member.id'))
+
+    def __repr__(self):
+        return f"Member('{self.price}')"
 
 
 if __name__ == '__main__':

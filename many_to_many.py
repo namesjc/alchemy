@@ -19,25 +19,27 @@ class Member(db.Model):
     def __repr__(self):
         return f'Member {self.username}, {self.email}'
 
+
 class Order(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     price = db.Column(db.Integer)
     user_id = db.Column(db.Integer, db.ForeignKey('member.id'))
 
+
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20))
 
-db.Table('user_courses',
-    db.Column('user_id', db.Integer, db.ForeignKey('member.id')),
-    db.Column('course_id', db.Integer, db.ForeignKey('course.id'))
-    )
 
+db.Table('user_courses',
+         db.Column('user_id', db.Integer, db.ForeignKey('member.id')),
+         db.Column('course_id', db.Integer, db.ForeignKey('course.id'))
+         )
 
 
 if __name__ == '__main__':
     app.run()
-    
+
 '''
 course1 = Course(name='Course One')
 course2 = Course(name='Course Two')
